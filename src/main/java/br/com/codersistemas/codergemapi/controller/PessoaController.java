@@ -1,6 +1,5 @@
 package br.com.codersistemas.codergemapi.controller;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -21,28 +20,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.codersistemas.codergemapi.domain.Aplicacao;
-import br.com.codersistemas.codergemapi.repository.AplicacaoRepository;
+import br.com.codersistemas.codergemapi.domain.Pessoa;
+import br.com.codersistemas.codergemapi.repository.PessoaRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/aplicacoes")
-public class AplicacaoController {
+@RequestMapping("/pessoas")
+public class PessoaController {
 	
 	@Autowired
-	private AplicacaoRepository posts;
+	private PessoaRepository posts;
 	
 	@GetMapping
-	public List<Aplicacao> listar() {
+	public List<Pessoa> listar() {
 		log.debug("listar!");
 		return posts.findAll(Sort.by(Order.asc("nome")));
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Aplicacao> buscar(@PathVariable Long id) {
-		Optional<Aplicacao> findById = posts.findById(id);
+	public ResponseEntity<Pessoa> buscar(@PathVariable Long id) {
+		Optional<Pessoa> findById = posts.findById(id);
 		if(!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
@@ -51,18 +50,18 @@ public class AplicacaoController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public Aplicacao adicionar(@Valid @RequestBody Aplicacao entity) {
+	public Pessoa adicionar(@Valid @RequestBody Pessoa entity) {
 		return posts.save(entity);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Aplicacao> excluir(@PathVariable Long id) {
-		Optional<Aplicacao> findById = posts.findById(id);
+	public ResponseEntity<Pessoa> excluir(@PathVariable Long id) {
+		Optional<Pessoa> findById = posts.findById(id);
 		if(!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		posts.delete(findById.get());
-		return new ResponseEntity<Aplicacao>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Pessoa>(HttpStatus.NO_CONTENT);
 	}
 
 }
