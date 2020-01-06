@@ -33,7 +33,7 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(generator="seq_pessoa", strategy=GenerationType.SEQUENCE) 
-	@SequenceGenerator(name="seq_pessoa") 
+	@SequenceGenerator(name="seq_pessoa", initialValue=1000) 
 	@Column(name="id_pessoa") 
 	private Long id;
 
