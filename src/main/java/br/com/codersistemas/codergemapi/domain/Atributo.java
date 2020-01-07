@@ -51,7 +51,7 @@ public class Atributo implements Serializable {
 
 	@Column(name="tamanho_minimo", nullable=true)
 	private Integer tamanhoMinimo;
-
+	
 	@Column(name="tamanho_maximo", nullable=true)
 	private Integer tamanhoMaximo;
 
