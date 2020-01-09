@@ -52,7 +52,7 @@ public class Pessoa implements Serializable {
 	@Column(name="ativo", length=1, nullable=false)
 	private Boolean ativo;
 
-	@Temporal(TemporalType.DATE) 
+	@Temporal(TemporalType.TIMESTAMP) 
 	@Column(name="data_de_nacimento", length=255, nullable=false)
 	private Date dataDeNacimento;
 
