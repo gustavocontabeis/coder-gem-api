@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +33,7 @@ public class Entidade implements Serializable {
 	@Id @GeneratedValue(generator="seq_entidade", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_entidade") @Column(name="id_entidade") 
 	private Long id;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_aplicacao")
 	private Aplicacao aplicacao;

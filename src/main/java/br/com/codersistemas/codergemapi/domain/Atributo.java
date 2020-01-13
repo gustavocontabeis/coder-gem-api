@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +32,7 @@ public class Atributo implements Serializable {
 	@Id @GeneratedValue(generator="seq_atributo", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_atributo") @Column(name="id_atributo") 
 	private Long id;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_entidade")
 	private Entidade entidade;
@@ -51,7 +54,7 @@ public class Atributo implements Serializable {
 
 	@Column(name="tamanho_minimo", nullable=true)
 	private Integer tamanhoMinimo;
-
+	
 	@Column(name="tamanho_maximo", nullable=true)
 	private Integer tamanhoMaximo;
 

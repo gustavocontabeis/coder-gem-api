@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,6 +54,7 @@ public class Pessoa implements Serializable {
 	@Column(name="ativo", length=1, nullable=false)
 	private Boolean ativo;
 
+	//@JsonFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP) 
 	@Column(name="data_de_nacimento", length=255, nullable=false)
 	private Date dataDeNacimento;
