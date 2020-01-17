@@ -34,12 +34,12 @@ import lombok.extern.slf4j.Slf4j;
 public class PessoaController {
 	
 	@Autowired
-	private PessoaRepository posts;
+	private PessoaRepository repository;
 	
 	@GetMapping
 	public List<Pessoa> listar() {
 		log.debug("listar!");
-		return posts.findAll(Sort.by(Order.asc("nome")));
+		return repository.findAll(Sort.by(Order.asc("nome")));
 	}
 	
 	/**
@@ -52,13 +52,13 @@ public class PessoaController {
             @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
 		log.debug("buscar! page: {}, size:{}", page, size);
 		PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "nome");
-        return posts.search(searchTerm, pageRequest);
+        return repository.search(searchTerm, pageRequest);
 
     }
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Pessoa> buscar(@PathVariable Long id) {
-		Optional<Pessoa> findById = posts.findById(id);
+		Optional<Pessoa> findById = repository.findById(id);
 		if(!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
@@ -68,16 +68,16 @@ public class PessoaController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Pessoa adicionar(@Valid @RequestBody Pessoa entity) {
-		return posts.save(entity);
+		return repository.save(entity);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Pessoa> excluir(@PathVariable Long id) {
-		Optional<Pessoa> findById = posts.findById(id);
+		Optional<Pessoa> findById = repository.findById(id);
 		if(!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
-		posts.delete(findById.get());
+		repository.delete(findById.get());
 		return new ResponseEntity<Pessoa>(HttpStatus.NO_CONTENT);
 	}
 

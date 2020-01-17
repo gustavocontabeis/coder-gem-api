@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,5 +60,9 @@ public class Pessoa implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP) 
 	@Column(name="data_de_nacimento", length=255, nullable=false)
 	private Date dataDeNacimento;
+	
+	@JoinColumn(name="id_pessoa_mae")
+	@ManyToOne(cascade= {CascadeType.DETACH}, fetch=FetchType.EAGER)
+	private Pessoa mae;
 
 }
