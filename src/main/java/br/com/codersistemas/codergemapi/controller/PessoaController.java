@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.codersistemas.codergemapi.domain.Pessoa;
 import br.com.codersistemas.codergemapi.repository.PessoaRepository;
+import br.com.codersistemas.codergemapi.repository.PessoaSpecification;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -37,9 +37,16 @@ public class PessoaController {
 	private PessoaRepository repository;
 	
 	@GetMapping
-	public List<Pessoa> listar() {
+	public List<Pessoa> listar(Pessoa pessoa) {
 		log.debug("listar!");
-		return repository.findAll(Sort.by(Order.asc("nome")));
+		//return repository.findAll(Sort.by(Order.asc("nome")));
+		return repository.findAll(new PessoaSpecification(pessoa));
+	}
+	
+	@GetMapping(path="listar2")
+	public List<Pessoa> listar2() {
+		log.debug("listar2!");
+		return repository.findAll(new PessoaSpecification(new Pessoa()));
 	}
 	
 	/**
