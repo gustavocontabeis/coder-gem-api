@@ -71,32 +71,50 @@ grant ALL on schema public to usr_coder_gem_api;
 -----------------------------------------------------------
 
 	API:
+	
+		IMPORTANTE: Colocar no pom o executable e finalname...
 		
 		cd /c/home/gustavo/desenv/workspace-github/coder-gem-api
+		cd /home/gustavo/dev/workspace-coder/coder-gem-api/
+		
 		mvn package -DskipTests
+		ls target/ -lah
 		cd target
-		ls -lah
-		cp coder-gem-api-0.0.1-SNAPSHOT.jar coder-gem-api.jar
-		ls -lah
 		scp coder-gem-api.jar coder1@codersistemas.com.br:~
 		ssh coder1@codersistemas.com.br
 		sudo rm /etc/init.d/coder-gem-api
 		sudo rm /var/apps/coder-gem-api/coder-gem-api.jar
 		sudo mv coder-gem-api.jar /var/apps/coder-gem-api/
 		ls -lah /var/apps/coder-gem-api/
-
-		sudo ln -s /var/apps/coder-gem-api/coder-gem-api.jar /etc/init.d/coder-gem-api
-
-		sudo update-rc.d coder-gem-api defaults
-		service coder-gem-api start
-		service coder-gem-api status
-
-		/etc/init.d/coder-gem-api stop
-		/etc/init.d/coder-gem-api start
-		http://192.168.1.119:8085/coder-gem-api/pessoas
-
+		java -jar /var/apps/coder-gem-api/coder-gem-api.jar
+			http://codersistemas.com.br:8084/coder-gem/pessoas 
+			http://localhost:8084/coder-gem/pessoas
 		
 		
+		via init.d (System V - antigo)
+
+			sudo ln -s /var/apps/coder-gem-api/coder-gem-api.jar /etc/init.d/coder-gem-api
+	
+			sudo update-rc.d coder-gem-api defaults
+			service coder-gem-api start
+			service coder-gem-api status
+	
+			/etc/init.d/coder-gem-api stop
+			/etc/init.d/coder-gem-api start
+			http://192.168.1.119:8085/coder-gem-api/pessoas
+			
+		via systemd
+
+			sudo cp /home/gustavo/dev/workspace-coder/coder-gem-api/infra/coder-gem-api.service /etc/systemd/system 
+			#executar para atualizar
+			systemctl daemon-reload
+			
+			service coder-gem-api stop
+			service coder-gem-api start
+			service coder-gem-api status
+		
+		
+		service coder-gem-api stop && service coder-gem-api start && service coder-gem-api status
 		
 		
 		
