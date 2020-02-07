@@ -15,14 +15,14 @@
 	\q
 	
 	--enviando o dump
-	scp /c/home/teste1.sql usuario1@meudominio.com.br:~
+	scp /c/home/teste1.sql coder1@codersistemas.com.br:~
 	
 	--logando na vm
-	ssh usuario1@meudominio.com.br (pwd /home/usuario1)
+	ssh coder1@codersistemas.com.br (pwd /home/coder1)
 	
 	
 	--executando o dump
-	psql -U usr_coder_gem_api -d bd_coder_gem_api -f /home/usuario1/teste1.sql bd_coder_gem_api
+	psql -U usr_coder_gem_api -d bd_coder_gem_api -f /home/coder1/teste1.sql bd_coder_gem_api
 	pwd_coder_gem_api
 	
 	
@@ -80,14 +80,14 @@ grant ALL on schema public to usr_coder_gem_api;
 		mvn package -DskipTests
 		ls target/ -lah
 		cd target
-		scp coder-gem-api.jar usuario1@meudominio.com.br:~
-		ssh usuario1@meudominio.com.br
+		scp coder-gem-api.jar coder1@codersistemas.com.br:~
+		ssh coder1@codersistemas.com.br
 		sudo rm /etc/init.d/coder-gem-api
 		sudo rm /var/apps/coder-gem-api/coder-gem-api.jar
 		sudo mv coder-gem-api.jar /var/apps/coder-gem-api/
 		ls -lah /var/apps/coder-gem-api/
 		java -jar /var/apps/coder-gem-api/coder-gem-api.jar
-			http://meudominio.com.br:8084/coder-gem/pessoas 
+			http://codersistemas.com.br:8084/coder-gem/pessoas 
 			http://localhost:8084/coder-gem/pessoas
 		
 		
@@ -127,29 +127,32 @@ grant ALL on schema public to usr_coder_gem_api;
  deploy frontend
  
  	#preparando o ambiente:
-	  	ssh usuario1@meudominio.com.br
+	  	ssh coder1@codersistemas.com.br
 	 	cd /var/www
 	 	ls -lah
-	 	sudo mkdir coder-gem-api
+	 	sudo mkdir teste
 		exit
 	 
  	replace enviroment -> url ->  pela de produção
  	
- 	cd /c/home/gustavo/desenv/workspace-github/coder-gem-ui/
- 	ng build
+ 	cd /c/home/gustavo/desenv/workspace-github/teste/
+ 	ng build --prod
  	cd dist/
  	ls -lah
- 	tar -cf coder-gem-ui.tar .
- 	scp  coder-gem-ui.tar usuario1@meudominio.com.br:~
- 	ssh usuario1@meudominio.com.br 
+ 	tar -cf teste.tar .
+ 	scp  teste.tar coder1@codersistemas.com.br:~
+ 	ssh coder1@codersistemas.com.br 
  	ls -lah
- 	sudo cp coder-gem-ui.tar /var/www/
+ 	sudo cp teste.tar /var/www/
  	cd /var/www/
  	ls -lah
- 	sudo tar -xf coder-gem-ui.tar
- 	ls coder-gem-ui -lah
-	sudo rm coder-gem-ui.tar
+ 	sudo tar -xf teste.tar
+ 	ls teste -lah
+	sudo rm teste.tar
 	ls -lah
+	
+	service nginx restart
+
  	
 	
 	ls /etc/nginx/sites-enabled/ -lah

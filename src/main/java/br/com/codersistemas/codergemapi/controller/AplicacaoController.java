@@ -1,8 +1,10 @@
 package br.com.codersistemas.codergemapi.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -32,17 +34,19 @@ import lombok.extern.slf4j.Slf4j;
 public class AplicacaoController {
 	
 	@Autowired
-	private AplicacaoRepository posts;
+	private AplicacaoRepository repository;
 	
 	@GetMapping
 	public List<Aplicacao> listar() {
 		log.debug("listar!");
-		return posts.findAll(Sort.by(Order.asc("nome")));
+		List<Aplicacao> findAll = repository.findAll(Sort.by(Order.asc("nome")));
+		findAll.stream().forEach(a->a.setEntidades(null));
+		return findAll;
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Aplicacao> buscar(@PathVariable Long id) {
-		Optional<Aplicacao> findById = posts.findById(id);
+		Optional<Aplicacao> findById = repository.findById(id);
 		if(!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
@@ -52,16 +56,16 @@ public class AplicacaoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Aplicacao adicionar(@Valid @RequestBody Aplicacao entity) {
-		return posts.save(entity);
+		return repository.save(entity);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Aplicacao> excluir(@PathVariable Long id) {
-		Optional<Aplicacao> findById = posts.findById(id);
+		Optional<Aplicacao> findById = repository.findById(id);
 		if(!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
-		posts.delete(findById.get());
+		repository.delete(findById.get());
 		return new ResponseEntity<Aplicacao>(HttpStatus.NO_CONTENT);
 	}
 

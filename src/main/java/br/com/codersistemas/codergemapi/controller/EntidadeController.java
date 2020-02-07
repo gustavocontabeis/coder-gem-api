@@ -1,5 +1,6 @@
 package br.com.codersistemas.codergemapi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,9 @@ public class EntidadeController {
 	@GetMapping
 	public List<Entidade> listar() {
 		log.debug("listar!");
-		return posts.findAll(Sort.by(Order.asc("nome")));
+		List<Entidade> findAll = posts.findAll(Sort.by(Order.asc("nome")));
+		//findAll.forEach(i->{i.getAplicacao().setEntidades(new ArrayList<>());
+		return findAll;
 	}
 
 	@GetMapping("/{id}")
@@ -48,10 +51,27 @@ public class EntidadeController {
 		return ResponseEntity.ok(findById.get());
 	}
 	
+	@GetMapping("/aplicacao/{id}")
+	public ResponseEntity<List<Entidade>> buscarEntidadesPorAplicacao(@PathVariable Long id) {
+		Optional<List<Entidade>> findById = posts.findByAplicacaoId(id);
+		if(!findById.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}else {
+			findById.get().forEach(obj->{
+				obj.setAtributos(new ArrayList<>());
+				obj.setAplicacao(null);});
+		}
+		return ResponseEntity.ok(findById.get());
+	}
+	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Entidade adicionar(@Valid @RequestBody Entidade entity) {
-		return posts.save(entity);
+		@Valid
+		Entidade save = posts.save(entity);
+		save.setAplicacao(null);
+		save.setAtributos(new ArrayList<>());
+		return save;
 	}
 	
 	@DeleteMapping("/{id}")

@@ -29,10 +29,10 @@ public class Atributo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(generator="seq_atributo", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_atributo") @Column(name="id_atributo") 
+	@Id @GeneratedValue(generator="seq_atributo", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_atributo", allocationSize=1) @Column(name="id_atributo") 
 	private Long id;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_entidade")
 	private Entidade entidade;

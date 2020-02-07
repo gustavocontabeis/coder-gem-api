@@ -30,10 +30,10 @@ public class Entidade implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(generator="seq_entidade", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_entidade") @Column(name="id_entidade") 
+	@Id @GeneratedValue(generator="seq_entidade", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_entidade", allocationSize=1) @Column(name="id_entidade") 
 	private Long id;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="id_aplicacao")
 	private Aplicacao aplicacao;

@@ -29,5 +29,9 @@ INSERT INTO public.pessoa (id_pessoa, altura, ativo, data_de_nacimento, genero, 
 INSERT INTO public.pessoa (id_pessoa, altura, ativo, data_de_nacimento, genero, nome, salario) VALUES (nextval('seq_pessoa'), 1, false, current_timestamp, 'F', 'MARIA DO SOCORRO SOARES', 1);
 INSERT INTO public.pessoa (id_pessoa, altura, ativo, data_de_nacimento, genero, nome, salario) VALUES (nextval('seq_pessoa'), 1, false, current_timestamp, 'F', 'MICHELE SILVA SANTOS', 1);
 INSERT INTO public.pessoa (id_pessoa, altura, ativo, data_de_nacimento, genero, nome, salario) VALUES (nextval('seq_pessoa'), 1, false, current_timestamp, 'F', 'MARIA HELENA HONORATO DA SILVA', 1);
-INSERT INTO public.aplicacao (id_aplicacao, nome) VALUES(nextval('seq_aplicacao'), 'OK');
-INSERT INTO public.entidade (id_entidade, id_aplicacao, nome, rotulo, tabela) values (nextval('seq_entidade'), 1, 'pessoa', 'Pessoa', 'pessoa');
+INSERT INTO public.aplicacao (id_aplicacao, nome) VALUES(nextval('seq_aplicacao'), 'OK 1');
+INSERT INTO public.aplicacao (id_aplicacao, nome) VALUES(nextval('seq_aplicacao'), 'OK 2');
+INSERT INTO public.entidade (id_entidade, id_aplicacao, nome, rotulo, tabela) values (nextval('seq_entidade'), 1, 'pessoa1', 'Pessoa1', 'pessoa1');
+INSERT INTO public.entidade (id_entidade, id_aplicacao, nome, rotulo, tabela) values (nextval('seq_entidade'), 1, 'pessoa2', 'Pessoa2', 'pessoa2');
+INSERT INTO public.entidade (id_entidade, id_aplicacao, nome, rotulo, tabela) values (nextval('seq_entidade'), 2, 'empresa1', 'Empresa1', 'empresa1');
+INSERT INTO public.entidade (id_entidade, id_aplicacao, nome, rotulo, tabela) values (nextval('seq_entidade'), 2, 'empresa2', 'Empresa2', 'empresa2');
