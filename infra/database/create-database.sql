@@ -77,6 +77,8 @@ grant ALL on schema public to usr_coder_gem_api;
 		cd /c/home/gustavo/desenv/workspace-github/coder-gem-api
 		cd /home/gustavo/dev/workspace-coder/coder-gem-api/
 		
+		colar o prod.properties...
+		
 		mvn package -DskipTests
 		ls target/ -lah
 		cd target
@@ -105,7 +107,9 @@ grant ALL on schema public to usr_coder_gem_api;
 			
 		via systemd
 
-			sudo cp /home/gustavo/dev/workspace-coder/coder-gem-api/infra/coder-gem-api.service /etc/systemd/system 
+			scp /home/gustavo/dev/workspace-coder/coder-gem-api/infra/coder-gem-api.service coder1@codersistemas.com.br:~
+			ssh coder1@codersistemas.com.br
+			sudo cp coder-gem-api.service /etc/systemd/system 
 			#executar para atualizar
 			systemctl daemon-reload
 			
@@ -130,28 +134,35 @@ grant ALL on schema public to usr_coder_gem_api;
 	  	ssh coder1@codersistemas.com.br
 	 	cd /var/www
 	 	ls -lah
-	 	sudo mkdir teste
+	 	sudo rm -r *.*
+	 	sudo rm -r coder-gem-ui
 		exit
 	 
  	replace enviroment -> url ->  pela de produção
  	
- 	cd /c/home/gustavo/desenv/workspace-github/teste/
+ 	cd /c/home/gustavo/desenv/workspace-github/coder-gem-ui/
+ 	cd ~/dev/workspace-coder/coder-gem-ui/
  	ng build --prod
  	cd dist/
  	ls -lah
- 	tar -cf teste.tar .
- 	scp  teste.tar coder1@codersistemas.com.br:~
+ 	tar -cf coder-gem-ui.tar .
+ 	scp  coder-gem-ui.tar coder1@codersistemas.com.br:~
  	ssh coder1@codersistemas.com.br 
  	ls -lah
- 	sudo cp teste.tar /var/www/
+ 	sudo cp ~/coder-gem-ui.tar /var/www/
  	cd /var/www/
  	ls -lah
- 	sudo tar -xf teste.tar
- 	ls teste -lah
-	sudo rm teste.tar
+ 	sudo tar -xf coder-gem-ui.tar
+ 	ls coder-gem-ui -lah
+ 	cd coder-gem-ui 
+	sudo cp *.* ..
+	cd ..
+ 	sudo rm coder-gem-ui.tar
 	ls -lah
 	
 	service nginx restart
+	
+	http://codersistemas.com.br/
 
  	
 	

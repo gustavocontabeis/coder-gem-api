@@ -4,7 +4,6 @@ package br.com.codersistemas.codergemapi.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.codersistemas.codergemapi.domain.Aplicacao;
+import br.com.codersistemas.codergemapi.domain.Entidade;
 import br.com.codersistemas.codergemapi.repository.AplicacaoRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,10 +37,13 @@ public class AplicacaoController {
 	private AplicacaoRepository repository;
 	
 	@GetMapping
-	public List<Aplicacao> listar() {
-		log.debug("listar!");
+	public List<Aplicacao> listar(){
+		log.debug("listar!2");
 		List<Aplicacao> findAll = repository.findAll(Sort.by(Order.asc("nome")));
-		findAll.stream().forEach(a->a.setEntidades(null));
+		for (Aplicacao aplicacao : findAll) {
+			aplicacao.setEntidades(new ArrayList<Entidade>());
+		}
+		//findAll.stream().forEach(a->{a.setEntidades(new ArrayList<Entidade>()}));
 		return findAll;
 	}
 
@@ -50,6 +53,8 @@ public class AplicacaoController {
 		if(!findById.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
+		Aplicacao aplicacao = findById.get();
+		aplicacao.setEntidades(new ArrayList<Entidade>());
 		return ResponseEntity.ok(findById.get());
 	}
 	
