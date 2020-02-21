@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,12 +27,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class Aplicacao implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(generator="seq_aplicacao", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_aplicacao", allocationSize=1) @Column(name="id_aplicacao", nullable=false) 
+	@Id @GeneratedValue(generator="seq_aplicacao", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_aplicacao", allocationSize=1) @Column(name="id_aplicacao", nullable=false)
 	private Long id;
 
+	@NotEmpty
 	@Column(name="nome", length=120, nullable=false)
 	private String nome;
 
