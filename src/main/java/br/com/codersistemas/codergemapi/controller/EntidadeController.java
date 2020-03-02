@@ -40,7 +40,7 @@ public class EntidadeController {
 	public List<Entidade> listar() {
 		log.debug("listar!");
 		List<Entidade> findAll = posts.findAll(Sort.by(Order.asc("nome")));
-		//findAll.forEach(i->{i.getAplicacao().setEntidades(new ArrayList<>());
+		findAll.forEach(i->i.getAplicacao().setEntidades(new ArrayList<>()));
 		return findAll;
 	}
 

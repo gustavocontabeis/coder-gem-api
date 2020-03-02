@@ -61,7 +61,10 @@ public class AplicacaoController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Aplicacao adicionar(@Valid @RequestBody Aplicacao entity) {
-		return repository.save(entity);
+		@Valid
+		Aplicacao save = repository.save(entity);
+		save.setEntidades(new ArrayList<Entidade>());
+		return save;
 	}
 	
 	@DeleteMapping("/{id}")
