@@ -4,7 +4,6 @@ package br.com.codersistemas.codergemapi.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,9 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.com.codersistemas.codergemapi.annotations.Tche;
+import br.com.codersistemas.libs.annotations.ClassLabelAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,7 +32,8 @@ public class Aplicacao implements Serializable {
 	@Id @GeneratedValue(generator="seq_aplicacao", strategy=GenerationType.SEQUENCE) @SequenceGenerator(name="seq_aplicacao", allocationSize=1) @Column(name="id_aplicacao", nullable=false)
 	private Long id;
 
-	@NotEmpty @br.com.codersistemas.libs.annotations.ToString
+	@ClassLabelAttribute
+	@NotEmpty 
 	@Column(name="nome", length=120, nullable=false)
 	private String nome;
 

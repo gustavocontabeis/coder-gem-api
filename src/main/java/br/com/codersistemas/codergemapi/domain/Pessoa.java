@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.codersistemas.libs.annotations.ClassLabelAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +42,7 @@ public class Pessoa implements Serializable {
 	@Column(name="id_pessoa") 
 	private Long id;
 
+	@ClassLabelAttribute
 	@Column(name="nome", length=120, nullable=false)
 	private String nome;
 

@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.codersistemas.libs.annotations.ClassLabelAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +39,7 @@ public class Entidade implements Serializable {
 	@JoinColumn(name="id_aplicacao")
 	private Aplicacao aplicacao;
 
+	@ClassLabelAttribute
 	@Column(name="nome", length=100, nullable=false)
 	private String nome;
 
